@@ -1,0 +1,90 @@
+$header-color = #f1f1f1
+$line-color = $header-color*0.8
+$h1-size = 3em
+$sidebar-height = 200px
+$fraction = (1 - 0.6180339887)
+//$fraction = 1/3
+
+@import "compass/utilities/lists/bullets"
+
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+// Import the non-default scaffolding module.
+@import blueprint/scaffolding
+
+// To generate css equivalent to the blueprint css but with your
+// configuration applied, uncomment:
+// @include blueprint
+
+// But Compass recommends that you scope your blueprint styles
+// So that you can better control what pages use blueprint
+// when stylesheets are concatenated together.
++blueprint-scaffolding("body.bp")
+body.bp
+  +blueprint-typography(true)
+  +blueprint-utilities
+  +blueprint-debug
+  +blueprint-interaction
+  // Remove the scaffolding when you're ready to start doing visual design.
+  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+form.bp
+  +blueprint-form
+
+// Page layout can be done using mixins applied to your semantic classes and IDs:
+body.two-col
+  #header
+    border-bottom: 2px solid $line-color
+    background: $header-color
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    h1
+      color: black
+      margin: 0.25em 0 0.25em 0
+  #container, #header-container
+    +container
+    text-align: left
+  #container
+    margin-top: $h1-size*1.5 + $h1-size
+  #sidebar
+    position: relative
+    position: fixed
+    display: table-row
+    // One third of the grid columns, rounding down. With 24 cols, this is 8.
+    $sidebar-columns: floor($blueprint-grid-columns * $fraction)
+    +column($sidebar-columns, true)
+    background: 0.8*$header-color
+    height: $sidebar-height
+  #sidebar-container
+    display: table-cell
+    $sidebar-columns: floor($blueprint-grid-columns * $fraction)
+    width: ($blueprint-grid-width + $blueprint-grid-margin) * $sidebar-columns
+    height: $sidebar-height
+    vertical-align: middle
+    text-align: center
+  #content
+    // Two thirds of the grid columns, rounding up.
+    // With 24 cols, this is 16.
+    $content-columns: ceil((1-$fraction) * $blueprint-grid-columns)
+    // true means it's the last column in the row
+    +column($content-columns)
+  #footer
+    height: 4em
+    padding-top: 1em
+    border-top: 2px solid $line-color
+    +column($blueprint-grid-columns)
+  ul
+    +no-bullet
+    margin-left: 0
+    padding-left: 0
+    li
+      padding: 1em 0 1em 0
+      margin-top: -1px
+      border-bottom: 1px solid 1.2*$line-color
+    li:last-child
+      border-bottom: none

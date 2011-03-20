@@ -1,0 +1,6 @@
+compass create 001_twitter --using blueprint --syntax sass
+cd 001_twitter
+python -m SimpleHTTPServer
+
+sidebar text centering does not work in ie7 and less
+http://www.quirksmode.org/css/display.html
